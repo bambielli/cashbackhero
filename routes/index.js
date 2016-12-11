@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+/*
+  Export routes from different models.
+*/
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const cardRoutes = require('./card/cardRoutes')
 
-module.exports = router;
+module.exports = {
+  cardRoutes
+}
