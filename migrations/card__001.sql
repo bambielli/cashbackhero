@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS cb_dev;
-CREATE DATABASE cb_dev;
-
-\c cb_dev;
-
 CREATE TABLE card (
   ID SERIAL PRIMARY KEY,
   name VARCHAR
