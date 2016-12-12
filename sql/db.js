@@ -9,7 +9,7 @@ const options = {
 
 const pgp = require('pg-promise')(options)
 
-const connection = process.env.PG_URL || 'postgres://localhost:5432/cb_dev'
+const connection = process.env.DATABASE_URL || 'postgres://localhost:5432/cb_dev'
 const db = pgp(connection)
 
 module.exports = db

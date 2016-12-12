@@ -1,7 +1,7 @@
-const db = require('../db')
+const { cards } = require('../../sql')
 
 function getAllCards (req, res, next) {
-  db.any('select * from card')
+  cards.getAllCards()
     .then(function (data) {
       res.status(200)
         .json({
