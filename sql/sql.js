@@ -11,6 +11,7 @@ function sql (file) {
 
 module.exports = {
   cards: {
-    getAllCards: sql('cards/getAllCards.sql')
+    getAllCards: sql('cards/getAllCards.sql'),
+    getSingleCard: sql('cards/getSingleCard.sql')
   }
 }

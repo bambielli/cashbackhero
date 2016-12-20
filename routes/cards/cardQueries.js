@@ -15,6 +15,23 @@ function getAllCards (req, res, next) {
     })
 }
 
+function getSingleCard (req, res, next) {
+  const cardId = parseInt(req.params.id)
+  cards.getSingleCard(cardId)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved single card'
+        })
+    })
+    .catch(function (err) {
+      return next(err)
+    })
+}
+
 module.exports = {
-  getAllCards
+  getAllCards,
+  getSingleCard
 }
