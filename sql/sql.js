@@ -12,6 +12,9 @@ function sql (file) {
 module.exports = {
   cards: {
     getAllCards: sql('cards/getAllCards.sql'),
-    getSingleCard: sql('cards/getSingleCard.sql')
+    getSingleCard: sql('cards/getSingleCard.sql'),
+    createCard: sql('cards/createCard.sql'),
+    updateCard: sql('cards/updateCard.sql'),
+    deleteCard: sql('cards/deleteCard.sql')
   }
 }
