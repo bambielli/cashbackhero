@@ -1,1 +1,1 @@
-SELECT * from card where id=$1;
+SELECT * from card where id=${id};
