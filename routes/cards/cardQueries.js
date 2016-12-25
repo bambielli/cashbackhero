@@ -16,6 +16,7 @@ function getAllCards (req, res, next) {
 }
 
 function getSingleCard (req, res, next) {
+  console.log(req.user)
   const cardId = parseInt(req.params.id)
   if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
@@ -50,12 +51,12 @@ function createCard (req, res, next) {
 }
 
 function updateCard (req, res, next) {
-  const id = parseInt(req.params.id)
-  if (isNaN(id)) {
+  const cardId = parseInt(req.params.id)
+  if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
   }
   const { name } = req.body
-  cards.updateCard(id, name)
+  cards.updateCard(cardId, name)
     .then(function () {
       res.status(200)
         .json({
@@ -69,11 +70,11 @@ function updateCard (req, res, next) {
 }
 
 function deleteCard (req, res, next) {
-  var id = parseInt(req.params.id)
-  if (isNaN(id)) {
+  var cardId = parseInt(req.params.id)
+  if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
   }
-  cards.deleteCard(id)
+  cards.deleteCard(cardId)
     .then(function (result) {
       res.status(200)
         .json({
