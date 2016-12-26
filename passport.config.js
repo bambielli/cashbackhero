@@ -1,8 +1,7 @@
-const passport = require('passport')
 const FacebookStrategy = require('passport-facebook')
 
 const serializeUser = (user, done) => {
-  done(null, user.id)
+  done(null, user.id) //this only needs the user.id. the full user object is retrieved via deserialize user.
 }
 
 const deserializeUser = (id, done) => {
@@ -15,7 +14,8 @@ const deserializeUser = (id, done) => {
 facebookStrategy = new FacebookStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.BASE_URL + '/auth/facebook/callback'
+    callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
+    profileFields: ['id', 'name', 'gender', 'picture', 'email']
   },
   function (accessToken, refreshToken, profile, cb) {
     console.log('VERIFICATION CALLBACK')
@@ -24,9 +24,7 @@ facebookStrategy = new FacebookStrategy({
   }
 )
 
-module.exports = (app) => {
-  app.use(passport.initialize())
-  app.use(passport.session())
+module.exports = (passport) => {
   passport.serializeUser(serializeUser)
   passport.deserializeUser(deserializeUser)
   passport.use(facebookStrategy)

@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const passport = require('passport')
 const { cardRoutes, facebookRoutes, appRoutes } = require('./routes')
 
 const app = express()
@@ -24,9 +25,13 @@ if (app.get('env') === 'production') {
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
 }
+
 app.use(session(sess))
 
-require('./passport.config')(app) //must be done AFTER session setup
+//must be done AFTER session setup
+app.use(passport.initialize())
+app.use(passport.session())
+require('./passport.config')(passport)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
