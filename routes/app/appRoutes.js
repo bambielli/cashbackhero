@@ -5,12 +5,15 @@ router.get('/', (req, res) => {
   res.send('home page')
 })
 
+router.get('/login', (req, res) => {
+  res.send('login page')
+})
+
 router.get('/badAuth', (req, res) => {
   res.send('bad authentication')
 })
 
 router.get('/goodAuth', (req, res) => {
-  console.log(req.user)
   res.send('successful auth')
 })
 
