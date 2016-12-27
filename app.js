@@ -8,6 +8,14 @@ const session = require('express-session')
 const passport = require('passport')
 const { cardRoutes, facebookRoutes, appRoutes } = require('./routes')
 
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+}
+
 const app = express()
 const sess = {
   secret: process.env.SESSION_SECRET,
@@ -46,9 +54,9 @@ app.use(cookieParser())
 app.use(require('less-middleware')(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'public')))
 
-/* Routes */
-app.use('/api/cards', cardRoutes)
+app.use('/api', isLoggedIn)
 app.use('/auth/facebook', facebookRoutes)
+app.use('/api/cards', cardRoutes)
 app.use('/', appRoutes)
 
 // catch 404 and forward to error handler

@@ -16,7 +16,6 @@ function getAllCards (req, res, next) {
 }
 
 function getSingleCard (req, res, next) {
-  console.log(req.user)
   const cardId = parseInt(req.params.id)
   if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
