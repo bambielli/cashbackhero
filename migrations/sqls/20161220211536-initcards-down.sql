@@ -1,1 +1,1 @@
-DROP TABLE card;
+DROP TABLE cards;

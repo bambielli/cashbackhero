@@ -1,1 +1,1 @@
-UPDATE card SET name=${name} where id=${id}
+UPDATE cards SET name=${name} where id=${id}

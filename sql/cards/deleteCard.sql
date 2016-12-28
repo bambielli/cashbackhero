@@ -1,1 +1,1 @@
-DELETE FROM card WHERE id=${id};
+DELETE FROM cards WHERE id=${id};

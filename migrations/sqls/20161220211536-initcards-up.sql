@@ -1,9 +1,9 @@
-CREATE TABLE card (
-  ID SERIAL PRIMARY KEY,
+CREATE TABLE cards (
+  id SERIAL PRIMARY KEY,
   name VARCHAR
 );
 
-INSERT INTO card (name)
+INSERT INTO cards (name)
   VALUES
     ('Discover IT'),
     ('Capital One Venture'),

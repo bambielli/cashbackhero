@@ -1,1 +1,1 @@
-INSERT INTO card(name) VALUES(${name});
+INSERT INTO cards(name) VALUES(${name});
