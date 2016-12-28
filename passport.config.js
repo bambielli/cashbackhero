@@ -15,7 +15,7 @@ facebookStrategy = new FacebookStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
-    profileFields: ['id', 'name', 'gender', 'picture', 'email']
+    profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
   },
   function (accessToken, refreshToken, profile, cb) {
     console.log('VERIFICATION CALLBACK')

@@ -1,2 +1,2 @@
 -- Gets all cards from database
-select * from card;
+select * from cards;
