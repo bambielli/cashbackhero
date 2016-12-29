@@ -1,14 +1,19 @@
 const FacebookStrategy = require('passport-facebook')
+const { users } = require('./sql')
 
 const serializeUser = (user, done) => {
   done(null, user.id) //this only needs the user.id. the full user object is retrieved via deserialize user.
 }
 
 const deserializeUser = (id, done) => {
-  // User.findById(id, function(err, user) {
-  //   done(err, user);
-  // }); //REPLACE WITH FINDING USER BY ID in table. the ID is what we will store.
-  done(null, {id: id})
+  users.getUser(id)
+    .then((data) => {
+      console.log(data)
+      done(null, data)
+    })
+    .catch((err) => {
+      done(err, null)
+    })
 }
 
 facebookStrategy = new FacebookStrategy({
@@ -17,10 +22,14 @@ facebookStrategy = new FacebookStrategy({
     callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
     profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
   },
-  function (accessToken, refreshToken, profile, cb) {
-    console.log('VERIFICATION CALLBACK')
-    // need to get or create user once user table is up.
-    cb(undefined, profile)
+  function (accessToken, refreshToken, profile, done) {
+    users.getOrCreateUser(profile._json)
+      .then((data) => {
+        done(null, data)
+      })
+      .catch((err) => {
+        done(err, null)
+      })
   }
 )
 
