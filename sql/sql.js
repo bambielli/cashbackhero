@@ -10,15 +10,15 @@ function sql (file) {
 }
 
 module.exports = {
-  cards: {
-    getAllCards: sql('cards/getAllCards.sql'),
-    getSingleCard: sql('cards/getSingleCard.sql'),
-    createCard: sql('cards/createCard.sql'),
-    updateCard: sql('cards/updateCard.sql'),
-    deleteCard: sql('cards/deleteCard.sql')
+  card: {
+    getAllCards: sql('card/getAllCards.sql'),
+    getCard: sql('card/getCard.sql'),
+    createCard: sql('card/createCard.sql'),
+    updateCard: sql('card/updateCard.sql'),
+    deleteCard: sql('card/deleteCard.sql')
   },
-  users: {
-    getOrCreateUser: sql('users/getOrCreateUser.sql'),
-    getUser: sql('users/getUser.sql')
+  user: {
+    getOrCreateUser: sql('user/getOrCreateUser.sql'),
+    getUser: sql('user/getUser.sql')
   }
 }

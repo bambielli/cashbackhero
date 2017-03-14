@@ -1,7 +1,7 @@
-const { cards } = require('../../sql')
+const { card } = require('../../sql')
 
 const getAllCards = (req, res, next) => {
-  cards.getAllCards()
+  card.getAllCards()
     .then(function (data) {
       res.status(200)
         .json({
@@ -15,12 +15,12 @@ const getAllCards = (req, res, next) => {
     })
 }
 
-const getSingleCard = (req, res, next) => {
+const getCard = (req, res, next) => {
   const cardId = parseInt(req.params.id)
   if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
   }
-  cards.getSingleCard(cardId)
+  card.getCard(cardId)
     .then(function (data) {
       res.status(200)
         .json({
@@ -36,7 +36,7 @@ const getSingleCard = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name } = req.body
-  cards.createCard(name)
+  card.createCard(name)
     .then(function (data) {
       res.status(200)
         .json({
@@ -55,7 +55,7 @@ const updateCard = (req, res, next) => {
     throw Error('Requested ID was not an integer')
   }
   const { name } = req.body
-  cards.updateCard(cardId, name)
+  card.updateCard(cardId, name)
     .then(function () {
       res.status(200)
         .json({
@@ -73,7 +73,7 @@ const deleteCard = (req, res, next) => {
   if (isNaN(cardId)) {
     throw Error('Requested ID was not an integer')
   }
-  cards.deleteCard(cardId)
+  card.deleteCard(cardId)
     .then(function (result) {
       res.status(200)
         .json({
@@ -88,7 +88,7 @@ const deleteCard = (req, res, next) => {
 
 module.exports = {
   getAllCards,
-  getSingleCard,
+  getCard,
   createCard,
   updateCard,
   deleteCard

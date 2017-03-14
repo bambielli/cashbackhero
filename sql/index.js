@@ -1,25 +1,25 @@
 const db = require('./db')
-const { cards, users } = require('./sql')
+const { card, user } = require('./sql')
 
 module.exports = {
-  cards: {
+  card: {
     getAllCards: () => {
-      return db.any(cards.getAllCards)
+      return db.any(card.getAllCards)
     },
-    getSingleCard: (id) => {
-      return db.one(cards.getSingleCard, {id: id})
+    getCard: (id) => {
+      return db.one(card.getCard, {id: id})
     },
     createCard: (name) => {
-      return db.none(cards.createCard, {name: name})
+      return db.none(card.createCard, {name: name})
     },
     updateCard: (id, name) => {
-      return db.none(cards.updateCard, {id: id, name: name})
+      return db.none(card.updateCard, {id: id, name: name})
     },
     deleteCard: (id) => {
-      return db.result(cards.deleteCard, {id: id})
+      return db.result(card.deleteCard, {id: id})
     }
   },
-  users: {
+  user: {
     getOrCreateUser: (data) => {
       console.log(data)
       const facebook_id = parseInt(data.id)
@@ -30,10 +30,10 @@ module.exports = {
         age_range_max,
         age_range_min
       })
-      return db.one(users.getOrCreateUser, userData)
+      return db.one(user.getOrCreateUser, userData)
     },
     getUser: (id) => {
-      return db.one(users.getUser, {id: id})
+      return db.one(user.getUser, {id: id})
     }
   }
 }

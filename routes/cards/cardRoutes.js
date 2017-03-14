@@ -4,7 +4,7 @@ const queries = require('./cardQueries')
 
 router.get('/', queries.getAllCards)
 router.post('/', queries.createCard)
-router.get('/:id', queries.getSingleCard)
+router.get('/:id', queries.getCard)
 router.put('/:id', queries.updateCard)
 router.delete('/:id', queries.deleteCard)
 
