@@ -1,5 +1,5 @@
 const db = require('./db')
-const { card, user } = require('./sql')
+const { card, account } = require('./sql')
 
 module.exports = {
   card: {
@@ -19,8 +19,8 @@ module.exports = {
       return db.result(card.deleteCard, {id: id})
     }
   },
-  user: {
-    getOrCreateUser: (data) => {
+  account: {
+    getOrCreateAccount: (data) => {
       console.log(data)
       const facebook_id = parseInt(data.id)
       const age_range_max = data.age_range.max || null
@@ -30,10 +30,10 @@ module.exports = {
         age_range_max,
         age_range_min
       })
-      return db.one(user.getOrCreateUser, userData)
+      return db.one(account.getOrCreateAccount, accountData)
     },
-    getUser: (id) => {
-      return db.one(user.getUser, {id: id})
+    getAccount: (id) => {
+      return db.one(account.getUser, {id: id})
     }
   }
 }

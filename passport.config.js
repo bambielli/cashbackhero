@@ -1,12 +1,12 @@
 const FacebookStrategy = require('passport-facebook')
-const { user } = require('./sql')
+const { account } = require('./sql')
 
 const serializeUser = (user, cb) => {
   cb(null, user.id) // this only needs the user.id. the full user object is retrieved via deserialize user.
 }
 
 const deserializeUser = (id, cb) => {
-  user.getUser(id)
+  account.getAccount(id)
     .then((data) => {
       cb(null, data)
     })
@@ -22,7 +22,7 @@ facebookStrategy = new FacebookStrategy({
   profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
 },
   function (accessToken, refreshToken, profile, cb) {
-    user.getOrCreateUser(profile._json)
+    account.getOrCreateAccount(profile._json)
       .then((data) => {
         cb(null, data)
       })

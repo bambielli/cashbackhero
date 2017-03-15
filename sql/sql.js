@@ -17,8 +17,8 @@ module.exports = {
     updateCard: sql('card/updateCard.sql'),
     deleteCard: sql('card/deleteCard.sql')
   },
-  user: {
-    getOrCreateUser: sql('user/getOrCreateUser.sql'),
-    getUser: sql('user/getUser.sql')
+  account: {
+    getOrCreateUser: sql('account/getOrCreateAccount.sql'),
+    getAccount: sql('account/getAccount.sql')
   }
 }
