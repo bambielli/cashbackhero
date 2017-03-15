@@ -21,7 +21,6 @@ module.exports = {
   },
   users: {
     getOrCreateUser: (data) => {
-      console.log(data)
       const facebook_id = parseInt(data.id)
       const age_range_max = data.age_range.max || null
       const age_range_min = data.age_range.min || null
@@ -34,6 +33,9 @@ module.exports = {
     },
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
+    },
+    getUserWallets: (user_id) => {
+      return db.one(users.getUserWallets, {user_id: user_id})
     }
   }
 }

@@ -5,7 +5,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
-const { cardRoutes, facebookRoutes, appRoutes } = require('./routes')
+const { cardRoutes, facebookRoutes, appRoutes, userRoutes } = require('./routes')
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -32,7 +32,6 @@ if (app.get('env') === 'production') {
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
 }
-console.log('env is', app.get('env'))
 
 app.use(session(sess))
 
@@ -56,6 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api', isLoggedIn)
 app.use('/auth/facebook', facebookRoutes)
 app.use('/api/cards', cardRoutes)
+app.use('/api/users', userRoutes)
 app.use('/', appRoutes)
 
 // catch 404 and forward to error handler
