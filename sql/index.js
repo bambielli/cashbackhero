@@ -34,8 +34,8 @@ module.exports = {
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
     },
-    getUserWallet: (user_id) => {
-      return db.any(users.getUserWallet, {user_id: user_id})
+    getUserWallets: (user_id) => {
+      return db.one(users.getUserWallets, {user_id: user_id})
     }
   }
 }
