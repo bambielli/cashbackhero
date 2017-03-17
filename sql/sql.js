@@ -18,8 +18,12 @@ module.exports = {
     deleteCard: sql('cards/deleteCard.sql')
   },
   users: {
-    getOrCreateUser: sql('users/getOrCreateUser.sql'),
+    createUser: sql('users/createUser.sql'),
     getUser: sql('users/getUser.sql'),
+    getUserByFacebookId: sql('users/getUserByFacebookId.sql'),
     getUserWallets: sql('users/getUserWallets.sql')
+  },
+  wallets: {
+    createWallet: sql('wallets/createWallet.sql')
   }
 }

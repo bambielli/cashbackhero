@@ -1,5 +1,5 @@
 const db = require('./db')
-const { cards, users } = require('./sql')
+const { cards, users, wallets } = require('./sql')
 
 module.exports = {
   cards: {
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   users: {
-    getOrCreateUser: (data) => {
+    createUser: (data) => {
       const facebook_id = parseInt(data.id)
       const age_range_max = data.age_range.max || null
       const age_range_min = data.age_range.min || null
@@ -29,13 +29,31 @@ module.exports = {
         age_range_max,
         age_range_min
       })
-      return db.one(users.getOrCreateUser, userData)
+      return db.one(users.createUser, userData)
+    }
+    getOrCreateUser: (data) => {
+      const facebook_id = parseInt(data.id)
+      const user = this.getUserByFacebookId(facebook_id)
+      if (user.length === 0) {
+        user = this.createUser(data)
+        module.exports.wallets.createWallet(user.id, '{}')
+      }
+      return user
     },
+    getUserByFacebookId: (fbId) => {
+      return db.oneOrNone(users.getUserByFacebookId, {facebook_id: fbId})
+    }
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
     },
-    getUserWallets: (user_id) => {
-      return db.one(users.getUserWallets, {user_id: user_id})
+    getUserWallets: (userId) => {
+      return db.one(users.getUserWallets, {user_id: userId})
+    }
+  },
+  wallets: {
+    createWallet: (userId, cardIds) => {
+      //cardIds are a object string
+      return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
     }
   }
 }
