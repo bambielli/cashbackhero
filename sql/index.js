@@ -30,19 +30,37 @@ module.exports = {
         age_range_min
       })
       return db.one(users.createUser, userData)
-    }
+    },
     getOrCreateUser: (data) => {
       const facebook_id = parseInt(data.id)
-      const user = this.getUserByFacebookId(facebook_id)
-      if (user.length === 0) {
-        user = this.createUser(data)
-        module.exports.wallets.createWallet(user.id, '{}')
-      }
-      return user
+      return module.exports.users.getUserByFacebookId(facebook_id)
+        .then(function (data) {
+          const user = data
+          if (user.length === 0) {
+            module.exports.users.createUser(data)
+              .then(function (data) {
+                module.exports.wallets.createWallet(user.id, '{}')
+                  .then(function (data) {
+                    return user
+                  })
+                  .catch(function (error) {
+                    return error
+                  })
+              })
+              .catch(function (error) {
+                return error
+              })
+          } else {
+            return user
+          }
+        })
+        .catch(function (error) {
+          return error
+        })
     },
     getUserByFacebookId: (fbId) => {
       return db.oneOrNone(users.getUserByFacebookId, {facebook_id: fbId})
-    }
+    },
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
     },
@@ -52,7 +70,7 @@ module.exports = {
   },
   wallets: {
     createWallet: (userId, cardIds) => {
-      //cardIds are a object string
+      // cardIds are a object string
       return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
     }
   }
