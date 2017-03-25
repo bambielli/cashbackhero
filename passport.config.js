@@ -24,6 +24,7 @@ facebookStrategy = new FacebookStrategy({
   function (accessToken, refreshToken, profile, cb) {
     users.getOrCreateUser(profile._json)
       .then((data) => {
+        // need to know whether user was retrieved or created
         cb(null, data)
       })
       .catch((err) => {

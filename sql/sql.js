@@ -23,6 +23,7 @@ module.exports = {
     getUserWallets: sql('users/getUserWallets.sql')
   },
   wallets: {
-    createWallet: sql('wallets/createWallet.sql')
+    createWallet: sql('wallets/createWallet.sql'),
+    getOrCreateWallet: sql('wallets/getOrCreateWallet.sql')
   }
 }

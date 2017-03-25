@@ -33,12 +33,14 @@ module.exports = {
     }
     getOrCreateUser: (data) => {
       const facebook_id = parseInt(data.id)
-      const user = this.getUserByFacebookId(facebook_id)
-      if (user.length === 0) {
-        user = this.createUser(data)
-        module.exports.wallets.createWallet(user.id, '{}')
-      }
-      return user
+      const age_range_max = data.age_range.max || null
+      const age_range_min = data.age_range.min || null
+      const userData = Object.assign({}, data, {
+        facebook_id,
+        age_range_max,
+        age_range_min
+      })
+      return db.one(users.getOrCreateUser, userData)
     },
     getUserByFacebookId: (fbId) => {
       return db.oneOrNone(users.getUserByFacebookId, {facebook_id: fbId})
@@ -54,6 +56,10 @@ module.exports = {
     createWallet: (userId, cardIds) => {
       //cardIds are a object string
       return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
+    },
+    getOrCreateWallet: (userId) => {
+      //implicit constraint that user can only have one wallet
+      return db.one(wallets.getOrCreateWallet, {user_id: userId})
     }
   }
 }
