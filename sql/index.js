@@ -57,8 +57,8 @@ module.exports = {
       //cardIds are a object string
       return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
     },
-    getOrCreateWallet: (userId) => {
-      //implicit constraint that user can only have one wallet
+    getOrCreateEmptyWallet: (userId) => {
+      // this is hacky and gross
       return db.one(wallets.getOrCreateWallet, {user_id: userId})
     }
   }

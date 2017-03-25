@@ -18,7 +18,7 @@ router.get('/home', (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.redirect('/login')
   } else {
-    users.getUserWallets(req.user.id)
+    users.getOrCreateWallets(req.user.id)
       .then((data) => {
         res.render('home', {card_ids: data.card_ids})
       })
