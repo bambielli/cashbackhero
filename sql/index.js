@@ -31,9 +31,6 @@ module.exports = {
       })
       return db.one(users.getOrCreateUser, userData)
     },
-    getUserByFacebookId: (fbId) => {
-      return db.oneOrNone(users.getUserByFacebookId, {facebook_id: fbId})
-    }
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
     },
@@ -43,12 +40,12 @@ module.exports = {
   },
   wallets: {
     createWallet: (userId, cardIds) => {
-      //cardIds are a object string
+      // cardIds are a object string
       return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
     },
     getOrCreateEmptyWallet: (userId) => {
-      // this is hacky and gross
-      return db.one(wallets.getOrCreateWallet, {user_id: userId})
+      const uid = parseInt(userId)
+      return db.one(wallets.getOrCreateEmptyWallet, {user_id: uid})
     }
   }
 }

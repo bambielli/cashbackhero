@@ -24,6 +24,6 @@ module.exports = {
   },
   wallets: {
     createWallet: sql('wallets/createWallet.sql'),
-    getOrCreateWallet: sql('wallets/getOrCreateWallet.sql')
+    getOrCreateEmptyWallet: sql('wallets/getOrCreateEmptyWallet.sql')
   }
 }

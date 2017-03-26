@@ -18,9 +18,13 @@ router.get('/home', (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.redirect('/login')
   } else {
-    users.getOrCreateWallets(req.user.id)
+    users.getUserWallets(parseInt(req.user.id))
       .then((data) => {
-        res.render('home', {card_ids: data.card_ids})
+        let cards = data.card_ids
+        if (cards.length === 0) {
+          cards = 'No cards in wallet yet'
+        }
+        res.render('home', {cards: cards})
       })
       .error(function (err) {
         res.send(err.message)

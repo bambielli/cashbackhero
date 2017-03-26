@@ -3,7 +3,7 @@
 WITH t AS (
   INSERT INTO wallets (user_id, card_ids)
   VALUES (${user_id}, '{}')
-  ON CONFLICT (${user_id}) DO NOTHING
+  ON CONFLICT (user_id) DO NOTHING
   RETURNING *
 )
 SELECT * FROM t

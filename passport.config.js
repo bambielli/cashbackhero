@@ -22,16 +22,15 @@ facebookStrategy = new FacebookStrategy({
   profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
 },
   function (accessToken, refreshToken, profile, cb) {
+    let userData
     users.getOrCreateUser(profile._json)
       .then((data) => {
-        // This ensures that a user has at least one wallet
-        wallets.getOrCreateEmptyWallet(data.id)
-          .then((data) => {
-            cb(null, data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+        userData = data
+        // this ensures a user has at least one wallet. Not the most efficient.
+        return wallets.getOrCreateEmptyWallet(data.id)
+      })
+      .then((data) => {
+        cb(null, userData)
       })
       .catch((err) => {
         cb(err, null)
