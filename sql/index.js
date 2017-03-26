@@ -1,6 +1,6 @@
 const db = require('./db')
 const { cards, users, wallets } = require('./sql')
-const util = require('../public/javascript/util')
+const util = require('./sql-util')
 
 module.exports = {
   cards: {

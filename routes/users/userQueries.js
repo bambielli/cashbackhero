@@ -1,6 +1,7 @@
 const { users } = require('../../sql')
 
 const getUserWallet = (req, res, next) => {
+  console.log(req.user)
   const userId = parseInt(req.params.id)
   if (isNaN(userId)) {
     throw Error('Requested ID was not an integer')

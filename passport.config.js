@@ -21,7 +21,7 @@ facebookStrategy = new FacebookStrategy({
   callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
   profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
 },
-  function (accessToken, refreshToken, profile, cb) {
+  (accessToken, refreshToken, profile, cb) => {
     let userData
     users.getOrCreateUser(profile._json)
       .then((data) => {
