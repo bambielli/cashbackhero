@@ -1,11 +1,11 @@
 const { users } = require('../../sql')
 
-const getUserWallets = (req, res, next) => {
+const getUserWallet = (req, res, next) => {
   const userId = parseInt(req.params.id)
   if (isNaN(userId)) {
     throw Error('Requested ID was not an integer')
   }
-  users.getUserWallets(userId)
+  users.getUserWallet(userId)
     .then(function (data) {
       res.status(200)
         .json({
@@ -20,5 +20,5 @@ const getUserWallets = (req, res, next) => {
 }
 
 module.exports = {
-  getUserWallets
+  getUserWallet
 }
