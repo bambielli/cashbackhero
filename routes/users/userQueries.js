@@ -30,8 +30,7 @@ const updateUserWallet = (req, res, next) => {
 
   users.updateUserWallet(userId, cardIds)
     .then((data) => {
-      res.status(204)
-      res.send()
+      res.status(204).send()
     })
     .catch((err) => {
       return next(err)
