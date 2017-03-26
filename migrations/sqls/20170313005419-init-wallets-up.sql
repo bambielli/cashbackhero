@@ -1,6 +1,6 @@
 CREATE TABLE wallets (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users,
+  user_id INTEGER REFERENCES users UNIQUE,
   card_ids INTEGER[]
 );
 

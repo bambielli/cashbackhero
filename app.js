@@ -8,7 +8,7 @@ const passport = require('passport')
 const { cardRoutes, facebookRoutes, appRoutes, userRoutes } = require('./routes')
 
 const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() || app.get('env') === 'development') {
     next()
   } else {
     res.redirect('/login')
