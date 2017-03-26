@@ -1,5 +1,6 @@
 const db = require('./db')
 const { cards, users, wallets } = require('./sql')
+const util = require('../public/javascript/util')
 
 module.exports = {
   cards: {
@@ -37,6 +38,11 @@ module.exports = {
     getUserWallet: (userId) => {
       const user_id = parseInt(userId)
       return db.one(users.getUserWallet, {user_id: user_id})
+    },
+    updateUserWallet: (userId, cardIds) => {
+      const user_id = parseInt(userId)
+      const card_ids = util.toPgArray(cardIds)
+      return db.none(users.updateUserWallet, {user_id: user_id, card_ids: card_ids})
     }
   },
   wallets: {
