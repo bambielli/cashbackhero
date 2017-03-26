@@ -35,17 +35,19 @@ module.exports = {
       return db.one(users.getUser, {id: id})
     },
     getUserWallets: (userId) => {
-      return db.one(users.getUserWallets, {user_id: userId})
+      const user_id = parseInt(userId)
+      return db.one(users.getUserWallets, {user_id: user_id})
     }
   },
   wallets: {
     createWallet: (userId, cardIds) => {
       // cardIds are a object string
-      return db.none(wallets.createWallet, {user_id: userId, card_ids: cardIds})
+      const user_id = parseInt(userId)
+      return db.none(wallets.createWallet, {user_id: user_id, card_ids: cardIds})
     },
     getOrCreateEmptyWallet: (userId) => {
-      const uid = parseInt(userId)
-      return db.one(wallets.getOrCreateEmptyWallet, {user_id: uid})
+      const user_id = parseInt(userId)
+      return db.one(wallets.getOrCreateEmptyWallet, {user_id: user_id})
     }
   }
 }
