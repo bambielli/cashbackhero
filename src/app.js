@@ -5,7 +5,12 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
-const { cardRoutes, facebookRoutes, appRoutes, userRoutes } = require('./routes')
+const {
+  cardRoutes,
+  facebookRoutes,
+  appRoutes,
+  userRoutes
+} = require('./routes')
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated() || app.get('env') === 'development') {
@@ -48,7 +53,9 @@ app.set('view engine', 'jade')
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 app.use(require('less-middleware')(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'public')))
 
