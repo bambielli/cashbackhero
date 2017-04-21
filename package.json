@@ -25,7 +25,6 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.2",
     "concurrently": "^3.4.0"
   }
 }
