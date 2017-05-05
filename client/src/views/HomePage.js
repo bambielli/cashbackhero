@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import logo from '../logo.svg';
 import '../App.css';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class HomePage extends Component {
   render() {
@@ -11,7 +12,7 @@ class HomePage extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <Link to="/cards">TO CARDS</Link>
+        <RaisedButton label="Cards" containerElement={<Link to="/cards" />} />
       </div>
     );
   }

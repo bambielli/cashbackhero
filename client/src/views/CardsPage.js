@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class CardsPage extends Component {
   constructor() {
@@ -34,7 +35,7 @@ class CardsPage extends Component {
           )}
         </ul>
 
-        <Link to="/home">TO HOME</Link>
+        <RaisedButton label="Home" containerElement={<Link to="/home" />} />
       </div>
     );
   }
