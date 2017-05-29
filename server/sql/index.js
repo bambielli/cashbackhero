@@ -37,7 +37,7 @@ module.exports = {
     },
     getUserWallet: (userId) => {
       const user_id = parseInt(userId)
-      return db.one(users.getUserWallet, {user_id: user_id})
+      return db.any(users.getUserWallet, {user_id: user_id})
     },
     updateUserWallet: (userId, cardIds) => {
       const user_id = parseInt(userId)
