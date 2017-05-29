@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
+import cards from '../models/cards'
 
 class CardsPage extends Component {
   constructor() {
@@ -11,20 +12,10 @@ class CardsPage extends Component {
   }
   componentDidMount() {
     console.log('mounted component')
-    fetch('/api/cards', {
-      accept: 'application/json'
-    }).then((res)=>{
-        if (res.ok) {
-          return res
-        } else {
-          throw Error('cards fetch threw an error')
-        }
-    }).then((res) => {
-        return res.json()
-    }).then((data) => {
-        console.log(data)
+    cards.getCards()
+      .then(data => {
         this.setState({'cards': data.data})
-    })
+      })
   }
   render() {
     return (
