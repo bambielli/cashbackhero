@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"PORT=3001 npm start\" \"npm run client\"",
     "client": "cd client && npm start",
-    "start": "node ./server/www"
+    "start": "nodemon ./server/www"
   },
   "dependencies": {
     "@types/express": "^4.0.35",
@@ -25,6 +25,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "concurrently": "^3.4.0"
+    "concurrently": "^3.4.0",
+    "nodemon": "^1.11.0"
   }
 }
