@@ -14,7 +14,7 @@
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
-    "react-scripts": "0.9.5"
+    "react-scripts": "1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,5 +22,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001/"
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3001/",
+      "ws": true
+    }
+  }
 }
