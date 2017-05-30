@@ -1,1 +1,1 @@
-web: db-migrate up && npm start
+web: cd server && db-migrate up && cd .. && yarn startProd
