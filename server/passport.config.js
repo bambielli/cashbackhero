@@ -1,5 +1,5 @@
 const FacebookStrategy = require('passport-facebook')
-const { users, wallets } = require('./sql')
+const { users } = require('./sql')
 
 const serializeUser = (user, cb) => {
   cb(null, user.id) // this only needs the user.id. the full user object is retrieved via deserialize user.
@@ -22,15 +22,9 @@ facebookStrategy = new FacebookStrategy({
   profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
 },
   (accessToken, refreshToken, profile, cb) => {
-    let userData
     users.getOrCreateUser(profile._json)
       .then((data) => {
-        userData = data
-        // this ensures a user has at least one wallet. Not the most efficient.
-        return wallets.getOrCreateEmptyWallet(data.id)
-      })
-      .then((data) => {
-        cb(null, userData)
+        cb(null, data)
       })
       .catch((err) => {
         cb(err, null)

@@ -1,6 +1,5 @@
 const db = require('./db')
-const { cards, users, wallets } = require('./sql')
-const util = require('./sql-util')
+const { cards, users } = require('./sql')
 
 module.exports = {
   cards: {
@@ -35,25 +34,13 @@ module.exports = {
     getUser: (id) => {
       return db.one(users.getUser, {id: id})
     },
-    getUserWallet: (userId) => {
+    getUserCards: (userId) => {
       const user_id = parseInt(userId)
-      return db.any(users.getUserWallet, {user_id: user_id})
+      return db.any(users.getUserCards, {user_id: user_id})
     },
-    updateUserWallet: (userId, cardIds) => {
+    addUserCard: (userId, cardId) => {
       const user_id = parseInt(userId)
-      const card_ids = util.toPgArray(cardIds)
-      return db.none(users.updateUserWallet, {user_id: user_id, card_ids: card_ids})
-    }
-  },
-  wallets: {
-    createWallet: (userId, cardIds) => {
-      // cardIds are a object string
-      const user_id = parseInt(userId)
-      return db.none(wallets.createWallet, {user_id: user_id, card_ids: cardIds})
-    },
-    getOrCreateEmptyWallet: (userId) => {
-      const user_id = parseInt(userId)
-      return db.one(wallets.getOrCreateEmptyWallet, {user_id: user_id})
+      return db.none(users.addUserCard, {user_id: user_id, card_id: cardId})
     }
   }
 }
