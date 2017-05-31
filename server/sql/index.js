@@ -1,22 +1,22 @@
 const db = require('./db')
-const { cards, users } = require('./sql')
+const { sql } = require('./dbUtils.js')
 
 module.exports = {
   cards: {
     getAllCards: () => {
-      return db.any(cards.getAllCards)
+      return db.any(sql('cards/getAllCards.sql'))
     },
     getSingleCard: (id) => {
-      return db.one(cards.getSingleCard, {id: id})
+      return db.one(sql('cards/getSingleCard.sql'), {id: id})
     },
     createCard: (name) => {
-      return db.none(cards.createCard, {name: name})
+      return db.none(sql('cards/createCard.sql'), {name: name})
     },
     updateCard: (id, name) => {
-      return db.none(cards.updateCard, {id: id, name: name})
+      return db.none(sql('cards/updateCard.sql'), {id: id, name: name})
     },
     deleteCard: (id) => {
-      return db.result(cards.deleteCard, {id: id})
+      return db.result(sql('cards/deleteCard.sql'), {id: id})
     }
   },
   users: {
@@ -29,18 +29,18 @@ module.exports = {
         age_range_max,
         age_range_min
       })
-      return db.one(users.getOrCreateUser, userData)
+      return db.one(sql('users/getOrCreateUser.sql'), userData)
     },
     getUser: (id) => {
-      return db.one(users.getUser, {id: id})
+      return db.one(sql('users/getUser.sql'), {id: id})
     },
     getUserCards: (userId) => {
       const user_id = parseInt(userId)
-      return db.any(users.getUserCards, {user_id: user_id})
+      return db.any(sql('users/getUserCards.sql'), {user_id: user_id})
     },
     addUserCard: (userId, cardId) => {
       const user_id = parseInt(userId)
-      return db.none(users.addUserCard, {user_id: user_id, card_id: cardId})
+      return db.none(sql('users/addUserCard.sql'), {user_id: user_id, card_id: cardId})
     }
   }
 }
