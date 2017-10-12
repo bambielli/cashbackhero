@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"PORT=3001 yarn startDev\" \"npm run client\"",
     "client": "cd client && yarn start",
-    "startDev": "nodemon ./server/www",
+    "dev": "PORT=3001 nodemon ./server/www",
     "start": "node ./server/www",
     "debug": "node --inspect ./server/www"
   },

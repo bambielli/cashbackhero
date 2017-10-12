@@ -10,27 +10,5 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.get('/badAuth', (req, res) => {
-  res.send('bad authentication')
-})
-
-router.get('/home', (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    res.redirect('/login')
-  } else {
-    users.getUserCards(req.user.id)
-      .then((data) => {
-        if (data.length === 0) {
-          cards = 'No cards in wallet yet'
-        }
-        // the below is broken. it returns [object Object] instead of parsing
-        res.render('home', {cards: data})
-      })
-      .error(function (err) {
-        res.send(err.message)
-      })
-  }
-})
-
 module.exports = router
 
