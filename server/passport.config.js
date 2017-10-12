@@ -18,7 +18,7 @@ const deserializeUser = (id, cb) => {
 facebookStrategy = new FacebookStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
+  callbackURL: '/auth/facebook/callback',
   profileFields: ['id', 'name', 'gender', 'picture', 'email', 'age_range', 'locale']
 },
   (accessToken, refreshToken, profile, cb) => {

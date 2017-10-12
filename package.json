@@ -6,7 +6,8 @@
     "dev": "concurrently \"PORT=3001 yarn startDev\" \"npm run client\"",
     "client": "cd client && yarn start",
     "startDev": "nodemon ./server/www",
-    "startProd": "node ./server/www"
+    "start": "node ./server/www",
+    "debug": "node --inspect ./server/www"
   },
   "dependencies": {
     "@types/express": "^4.0.35",
