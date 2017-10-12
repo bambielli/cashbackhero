@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"PORT=3001 yarn startDev\" \"npm run client\"",
+    "dev": "concurrently \"NODE_PATH=. PORT=3001 yarn startDev\" \"npm run client\"",
     "client": "cd client && yarn start",
-    "startDev": "nodemon ./server/www",
-    "startProd": "node ./server/www"
+    "startDev": "NODE_PATH=. nodemon ./server/www",
+    "startProd": "NODE_PATH=. node ./server/www"
   },
   "dependencies": {
     "@types/express": "^4.0.35",
