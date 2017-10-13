@@ -1,2 +1,2 @@
 release: db-migrate up
-web: ./build.sh
+web: yarn start
