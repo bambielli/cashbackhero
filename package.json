@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "client": "cd client && yarn start",
-    "dev": "PORT=3001 nodemon ./server/www",
-    "start": "node ./server/www",
-    "debug": "node --inspect ./server/www"
+    "dev": "PORT=3001 nodemon ./www",
+    "start": "node ./www",
+    "debug": "node --inspect ./www"
   },
   "dependencies": {
     "@types/express": "^4.0.35",
