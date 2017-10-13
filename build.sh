@@ -5,6 +5,4 @@ yarn install && # installing client deps in the client folder
 yarn run build &&
 mv build/ ../build/ &&
 cd .. && # back in the root
-rm -rf client &&
-db-migrate up &&
 yarn start
