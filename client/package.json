@@ -55,8 +55,11 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "proxy": {
-    "/*": {
-      "target": "http://localhost:3001/"
+    "/api": {
+      "target": "http://localhost:3001"
+    },
+    "/login": {
+      "target": "http://localhost:3001"
     }
   },
   "jest": {
