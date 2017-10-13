@@ -2,4 +2,5 @@
 cd client &&
 yarn install --production=false && # installing client deps in the client folder
 yarn run build &&
-mv build/ ../build/
+mv build/ ../build/ &&
+rm -rf node_modules
