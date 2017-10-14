@@ -65,6 +65,8 @@ app.use('/api/cards', cardRoutes)
 app.use('/api/users', userRoutes)
 app.use('/', appRoutes)
 app.use('*', function(req, res) {
+  // this ensures index.html is served from prod for all routes that don't match something higher.
+  // in dev this file is served from webpack dev server.
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
