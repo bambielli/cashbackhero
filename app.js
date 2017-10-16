@@ -5,6 +5,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
+
 const {
   cardRoutes,
   facebookRoutes,
@@ -13,7 +14,7 @@ const {
 } = require('./routes')
 
 const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated() || app.get('env') === 'development') {
+  if (req.isAuthenticated()) {
     next()
   } else {
     res.redirect('/login')
@@ -33,10 +34,11 @@ const sess = {
   }
 }
 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
+// NOTE: re-enable this when you set up SSL
+// if (app.get('env') === 'production') {
+//   app.set('trust proxy', 1) // trust first proxy
+//   sess.cookie.secure = true // serve secure cookies
+// }
 
 app.use(session(sess))
 

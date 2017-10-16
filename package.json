@@ -12,7 +12,10 @@
     "debug": "node --inspect ./www",
     "heroku-postbuild": "./postbuild.sh"
   },
-  "cacheDirectories": ["client/node_modules", "node_modules"],
+  "cacheDirectories": [
+    "client/node_modules",
+    "node_modules"
+  ],
   "dependencies": {
     "@types/express": "^4.0.35",
     "bluebird": "^3.4.6",
