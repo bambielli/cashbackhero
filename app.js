@@ -5,6 +5,8 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
+const RedisStore = require('connect-redis')(session)
+const redisClient = require("redis").createClient({ url: process.env.REDIS_URL });
 
 const {
   cardRoutes,
@@ -21,8 +23,16 @@ const isLoggedIn = (req, res, next) => {
   }
 }
 
+const SECONDS_IN_A_WEEK = 60*60*24*7
+
+const redisStore = new RedisStore({
+  client: redisClient,
+  ttl: SECONDS_IN_A_WEEK
+})
+
 const app = express()
 const sess = {
+  store: redisStore,
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
