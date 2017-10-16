@@ -23,6 +23,7 @@ const isLoggedIn = (req, res, next) => {
   }
 }
 
+
 const SECONDS_IN_A_WEEK = 60*60*24*7
 
 const redisStore = new RedisStore({
