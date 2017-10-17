@@ -7,20 +7,14 @@ const session = require('express-session')
 const passport = require('passport')
 const RedisStore = require('connect-redis')(session)
 const redisClient = require("redis").createClient({ url: process.env.REDIS_URL });
+
+const { isLoggedIn } = require('./utils')
 const {
   cardRoutes,
   facebookRoutes,
   appRoutes,
   userRoutes
 } = require('./routes')
-
-const isLoggedIn = (req, res, action) => {
-  if (req.isAuthenticated()) {
-    action()
-  } else {
-    res.redirect('/login')
-  }
-}
 
 
 const SECONDS_IN_A_WEEK = 60*60*24*7
@@ -76,17 +70,6 @@ app.use('/auth/facebook', facebookRoutes)
 app.use('/api/cards', cardRoutes)
 app.use('/api/users', userRoutes)
 app.use('/', appRoutes)
-app.use('/who-am-i', function(req, res) {
-  isLoggedIn(req, res, function() { res.json({id: 2}) });
-})
-app.use('/logout', function(req, res) {
-  req.session.destroy(function(err) {
-    if (err) {
-      console.log('error occurred while destroying session', err)
-    }
-    res.redirect('/')
-  })
-})
 app.use('*', function(req, res) {
   // this ensures index.html is served from prod for all routes that don't match something higher.
   // in dev this file is served from webpack dev server.
