@@ -7,7 +7,6 @@ const session = require('express-session')
 const passport = require('passport')
 const RedisStore = require('connect-redis')(session)
 const redisClient = require("redis").createClient({ url: process.env.REDIS_URL });
-
 const {
   cardRoutes,
   facebookRoutes,
@@ -22,7 +21,6 @@ const isLoggedIn = (req, res, next) => {
     res.redirect('/login')
   }
 }
-
 
 const SECONDS_IN_A_WEEK = 60*60*24*7
 

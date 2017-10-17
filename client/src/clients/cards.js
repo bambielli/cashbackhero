@@ -1,4 +1,4 @@
-module.exports.getCards = function() {
+function getCards () {
     return fetch('/api/cards', {
         credentials: "include"
     })
@@ -9,4 +9,8 @@ module.exports.getCards = function() {
                 return Promise.reject('Internal Server Error')
             }
         })
+}
+
+module.exports = {
+    getCards
 }

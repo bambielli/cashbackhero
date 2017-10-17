@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
-import cards from '../models/cards'
+import cardsClient from '../clients/cards'
 
 class CardsPage extends Component {
   constructor() {
@@ -11,8 +11,7 @@ class CardsPage extends Component {
     }
   }
   componentDidMount() {
-    console.log('mounted component')
-    cards.getCards()
+    cardsClient.getCards()
       .then(data => {
         this.setState({'cards': data.data})
       })
