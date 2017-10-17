@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/who-am-i', function(req, res) {
-  const { id, first_name, last_name, email } = req.session.passport.user
   isLoggedIn(req, res, function() {
+    const { id, first_name, last_name, email } = req.session.passport.user
     res.json({ id, firstName: first_name, lastName: last_name, email })
   });
 })
