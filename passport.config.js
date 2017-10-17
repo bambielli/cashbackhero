@@ -1,18 +1,14 @@
 const FacebookStrategy = require('passport-facebook')
 const { users } = require('./sql')
 
+// serializes user to session store
 const serializeUser = (user, cb) => {
-  cb(null, user.id) // this only needs the user.id. the full user object is retrieved via deserialize user.
+  cb(null, user)
 }
 
-const deserializeUser = (id, cb) => {
-  users.getUser(id)
-    .then((data) => {
-      cb(null, data)
-    })
-    .catch((err) => {
-      cb(err, null)
-    })
+// deserializes user out of session store
+const deserializeUser = (user, cb) => {
+  cb(null, user)
 }
 
 facebookStrategy = new FacebookStrategy({
