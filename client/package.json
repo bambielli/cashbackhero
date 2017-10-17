@@ -63,6 +63,12 @@
     },
     "/auth/*": {
       "target": "http://localhost:3001"
+    },
+    "/who-am-i": {
+      "target": "http://localhost:3001"
+    },
+    "/logout": {
+      "target": "http://localhost:3001"
     }
   },
   "jest": {
