@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { users } = require('../../sql')
-const { isLoggedIn } = require('../../utils')
+const { isLoggedIn, isDevEnvironment } = require('../../utils')
+
 
 router.get('/', (req, res) => {
   res.render('index', {title: 'Cash Back Hero'})
@@ -15,7 +16,7 @@ router.get('/who-am-i', function(req, res) {
 })
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  res.render('login', {isDevEnvironment: isDevEnvironment()})
 })
 
 router.get('/logout', function(req, res) {

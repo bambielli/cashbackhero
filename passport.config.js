@@ -1,5 +1,8 @@
 const FacebookStrategy = require('passport-facebook')
+const LocalStrategy = require('passport-local').Strategy;
 const { users } = require('./sql')
+
+const DEV_USER_ID = 1
 
 // serializes user to session store
 const serializeUser = (user, cb) => {
@@ -29,8 +32,21 @@ facebookStrategy = new FacebookStrategy({
   }
 )
 
+// just for local
+localStrategy = new LocalStrategy(function(u, p, cb) {
+  users.getUser(DEV_USER_ID)
+  .then((user) => {
+    console.log('sending user', user)
+    return cb(null, user)
+  })
+  .catch((err) => {
+    return cb(err, null)
+  })
+})
+
 module.exports = (passport) => {
   passport.serializeUser(serializeUser)
   passport.deserializeUser(deserializeUser)
   passport.use(facebookStrategy)
+  passport.use(localStrategy)
 }

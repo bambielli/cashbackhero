@@ -2,4 +2,11 @@ extends layout
 
 block content
   h1 Please login
-  a(href="/auth/facebook") with facebook
+  div
+    a(href="/auth/facebook") with facebook
+  if isDevEnvironment
+    form(method="POST" action="/auth/dev")
+      input(type="hidden" name="username" value="dev")
+      input(type="hidden" name="password" value="pass")
+      button(type="submit") with dev
+

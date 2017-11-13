@@ -8,14 +8,15 @@ const passport = require('passport')
 const RedisStore = require('connect-redis')(session)
 const redisClient = require("redis").createClient({ url: process.env.REDIS_URL });
 
-const { isLoggedIn } = require('./utils')
+const { isLoggedIn, isDevEnvironment } = require('./utils')
+
 const {
   cardRoutes,
   facebookRoutes,
   appRoutes,
-  userRoutes
+  userRoutes,
+  devRoutes
 } = require('./routes')
-
 
 const SECONDS_IN_A_WEEK = 60*60*24*7
 
@@ -43,9 +44,7 @@ const sess = {
 //   app.set('trust proxy', 1) // trust first proxy
 //   sess.cookie.secure = true // serve secure cookies
 // }
-
 app.use(session(sess))
-
 // must be done AFTER session setup
 app.use(passport.initialize())
 app.use(passport.session())
@@ -65,8 +64,11 @@ app.use(bodyParser.urlencoded({
 app.use(require('less-middleware')(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'build')))
 
-app.use('/api', isLoggedIn)
 app.use('/auth/facebook', facebookRoutes)
+if (isDevEnvironment()) {
+  app.use('/auth/dev', devRoutes)
+}
+app.use('/api', isLoggedIn)
 app.use('/api/cards', cardRoutes)
 app.use('/api/users', userRoutes)
 app.use('/', appRoutes)
