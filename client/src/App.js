@@ -4,6 +4,7 @@ import CardsPage from './views/CardsPage.js'
 import HomePage from './views/HomePage.js'
 import LandingPage from './views/LandingPage.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AuthenticatedRoutes from './AuthenticatedRoutes';
 
 class App extends Component {
   render() {
@@ -12,8 +13,10 @@ class App extends Component {
         <MuiThemeProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/cards" component={CardsPage} />
+            <AuthenticatedRoutes>
+              <Route exact path="/home" component={HomePage} />
+              <Route exact path="/cards" component={CardsPage} />
+            </AuthenticatedRoutes>
           </Switch>
         </MuiThemeProvider>
       </BrowserRouter>
