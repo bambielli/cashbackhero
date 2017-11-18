@@ -2,35 +2,35 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
 import walletsClient from '../clients/wallets'
+import Loading from '../components/Loading'
 
 class CardsPage extends Component {
   constructor() {
     super()
     this.state = {
-      'cards': []
+      isLoading: true,
+      cards: []
     }
   }
-  componentDidMount() {
-    walletsClient.getUserWallets()
-      .then(data => {
-        this.setState({'cards': data.data})
-      })
+
+  async componentDidMount() {
+    const data = await walletsClient.getUserWallets()
+    this.setState({cards: data.data, isLoading: false})
   }
   render() {
-    const { cards } = this.state;
+    const { cards, isLoading } = this.state;
     return (
-      <div>
+      <Loading isLoading={isLoading}>
         <ul>
           { cards.length ?
             cards.map((card)=>
               <li key={card.id}>{card.name}</li>
             ) :
-            <span>{`You don't have any cards in your wallet`}</span>
+            <li>{`You don't have any cards in your wallet`}</li>
           }
         </ul>
-
         <RaisedButton label="Home" containerElement={<Link to="/home" />} />
-      </div>
+      </Loading>
     );
   }
 }

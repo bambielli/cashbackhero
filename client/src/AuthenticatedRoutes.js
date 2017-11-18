@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { whoAmI } from './clients/users';
+import AppBar from 'material-ui/AppBar';
 import { node } from 'prop-types';
-import CircularProgress from 'material-ui/CircularProgress';
+import Logout from './components/Logout';
+import Loading from './components/Loading';
+import { whoAmI } from './clients/users';
 
 // this component does the initial auth check, and
 // stores the authenticated information of the usser in local state.
@@ -21,18 +23,17 @@ export default class AuthenticatedRoutes extends Component {
 
   render() {
     const isLoading = this.state.user == null;
+    const children = this.props.children;
     return (
-      <div>
-        {
-          isLoading ?
-          <div className="centered">
-            <CircularProgress />
-          </div> :
-          <div>
-            {this.props.children}
-          </div>
-        }
-      </div>
+      <Loading isLoading={isLoading}>
+        <div>
+          <AppBar
+            title="CashBackHero"
+            iconElementRight={<Logout />}
+          />
+          {children}
+        </div>
+      </Loading>
     )
   }
 }
