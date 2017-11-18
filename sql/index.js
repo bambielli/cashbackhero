@@ -34,9 +34,9 @@ module.exports = {
     getUser: (id) => {
       return db.one(sql('users/getUser.sql'), {id: id})
     },
-    getUserCards: (userId) => {
+    getUserWallets: (userId) => {
       const user_id = parseInt(userId)
-      return db.any(sql('users/getUserCards.sql'), {user_id: user_id})
+      return db.any(sql('users/getUserWallets.sql'), {user_id: user_id})
     },
     addUserCard: (userId, cardId) => {
       const user_id = parseInt(userId)

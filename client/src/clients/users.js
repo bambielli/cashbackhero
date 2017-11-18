@@ -1,7 +1,3 @@
-function getUserCards () {
-    return fetch('/api/users')
-}
-
 function whoAmI () {
     return fetch('/who-am-i', {
         credentials: "include"
@@ -15,6 +11,5 @@ function whoAmI () {
 }
 
 module.exports = {
-    getUserCards,
     whoAmI
 }

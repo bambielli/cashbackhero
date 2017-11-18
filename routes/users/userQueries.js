@@ -1,18 +1,18 @@
 const { users } = require('../../sql')
 
-const getUserCards = (req, res, next) => {
-  const userId = parseInt(req.params.id)
+const getUserWallets = (req, res, next) => {
+  const userId = parseInt(req.user.id)
   if (isNaN(userId)) {
     throw Error('Requested ID was not an integer')
   }
 
-  users.getUserCards(userId)
+  users.getUserWallets(userId)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: `Retrieved Cards for User id ${userId}`
+          message: `Successfully retrieved cards for user`
         })
     })
     .catch(function (err) {
@@ -21,7 +21,7 @@ const getUserCards = (req, res, next) => {
 }
 
 const addUserCard = (req, res, next) => {
-  const userId = parseInt(req.params.id)
+  const userId = parseInt(req.user.id)
   if (isNaN(userId)) {
     throw Error('Requested ID was not an integer')
   }
@@ -38,6 +38,6 @@ const addUserCard = (req, res, next) => {
 }
 
 module.exports = {
-  getUserCards,
+  getUserWallets,
   addUserCard
 }
