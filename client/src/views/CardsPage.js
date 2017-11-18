@@ -20,9 +20,11 @@ class CardsPage extends Component {
     return (
       <div>
         <ul>
-          {this.state.cards.map((card)=>
-            <li key={card.id}>{card.name}</li>
-          )}
+          {
+            this.state.cards.map((card)=>
+              <li key={card.id}>{card.name}</li>
+            )
+          }
         </ul>
 
         <RaisedButton label="Home" containerElement={<Link to="/home" />} />
