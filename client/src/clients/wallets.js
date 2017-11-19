@@ -5,22 +5,21 @@ function getUserWallets () {
     if (res.ok) {
         return res.json()
     } else {
-        return Promise.reject('Internal Server Error')
+        return Promise.reject('Couldn\'t retrieve wallet')
     }
   })
 }
 
 function addCardToWallet(cardId) {
+  const body = JSON.stringify({ cardId })
   return fetch('/api/users/wallets/cards', {
     method: 'post',
     credentials: 'include',
     headers: {'Content-Type': 'application/json'},
-    body: {
-      cardId
-    }
+    body
   }).then(res => {
     if (res.ok) {
-      return Promise.resolve(true)
+      return Promise.resolve()
     } else {
       return Promise.reject('Internal Server Error')
     }

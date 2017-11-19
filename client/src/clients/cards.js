@@ -20,7 +20,7 @@ function getSelectableCards() {
         if (res.ok) {
             return res.json()
         } else {
-            return Promise.reject('Internal Server Error')
+            return Promise.reject('Couldn\'t retrieve cards')
         }
     })
 }

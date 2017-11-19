@@ -27,9 +27,10 @@ const addUserCard = (req, res, next) => {
   }
 
   const cardId = req.body.cardId
-
+  console.log(userId, cardId)
   users.addUserCard(userId, cardId)
     .then((data) => {
+      console.log('successfull add')
       res.status(204).send()
     })
     .catch((err) => {

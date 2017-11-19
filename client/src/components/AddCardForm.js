@@ -1,13 +1,14 @@
 import React from 'react';
-import { array, func, bool, number } from 'prop-types';
+import { array, func, bool, object } from 'prop-types';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-export default function AddCardForm({ selectedValue, selectableCards, handleCardChange }) {
+export default function AddCardForm({ selectedCard, selectableCards, handleCardChange }) {
   return (
+    <div>
       <SelectField
         floatingLabelText="Add a card to your wallet"
-        value={selectedValue}
+        value={selectedCard}
         onChange={handleCardChange}
       >
         <MenuItem value={null} primaryText="" />
@@ -17,12 +18,13 @@ export default function AddCardForm({ selectedValue, selectableCards, handleCard
           })
         }
       </SelectField>
+    </div>
   )
 }
 
 AddCardForm.propTypes = {
   isLoading: bool,
-  selectedValue: number,
+  selectedCard: object,
   selectableCards: array,
   handleCardChange: func,
 }

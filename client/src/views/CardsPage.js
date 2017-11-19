@@ -1,50 +1,85 @@
 import React, { Component } from 'react'
+import FlatButton from 'material-ui/FlatButton'
 import walletsClient from '../clients/wallets'
 import cardsClient from '../clients/cards'
 import Loading from '../components/Loading'
 import AddCardForm from '../components/AddCardForm'
+import Status from '../components/Status'
 
 class CardsPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isLoading: true,
-      selectedValue: null,
+      selectedCard: null,
       selectableCards: [],
       cards: [],
-      error: null
+      status: {
+        message: '',
+        open: false
+      }
     }
     this.handleCardChange = this.handleCardChange.bind(this)
     this.addCardToWallet = this.addCardToWallet.bind(this)
+    this.handleOpenChange = this.handleOpenChange.bind(this)
   }
 
   async componentDidMount() {
-    const walletData = await walletsClient.getUserWallets()
-    const selectableData = await cardsClient.getSelectableCards()
-    this.setState({cards: walletData.data, selectableCards: selectableData.data, isLoading: false})
+    try {
+      const walletData = await walletsClient.getUserWallets()
+      const selectableData = await cardsClient.getSelectableCards()
+      this.setState({cards: walletData.data, selectableCards: selectableData.data, isLoading: false})
+    } catch (e) {
+      this.setState({ isLoading: false, status: { message: e, open: true }})
+    }
   }
 
-  handleCardChange(_, __, selectedValue) {
-    this.setState({ selectedValue })
+  handleCardChange(_, __, selectedCard) {
+    this.setState({ selectedCard })
+  }
+
+  handleOpenChange(open) {
+    console.log('changing open brooo', open)
+    this.setState({ status: { open, message: '' }})
   }
 
   async addCardToWallet() {
-    const isSuccessful = await cardsClient.addCardToWallet({ card: this.state.selectedValue.id })
-    console.log(isSuccessful);
-    if (isSuccessful) {
-      const newCards = this.state.cards.concat(this.state.selectedValue)
-      const newSelectableCards =  this.state.selectableCards.filter((card) => {
-        card.id !== this.state.selectedValue.id;
+    const { selectedCard, selectableCards, cards } = this.state;
+    console.log(selectableCards, selectedCard )
+    if (!selectedCard) {
+      this.setState({
+        status: {
+          message: 'Please select a card from the dropdown',
+          open: true
+        }
       })
-      this.setState({ cards: newCards, selectableCards: newSelectableCards })
     } else {
-      const error = { message: 'There was a problem saving your card. Please try again later' }
-      this.setState({ error })
+      try {
+        await walletsClient.addCardToWallet(selectedCard.id)
+        const newCards = cards.concat(selectedCard)
+        const newSelectableCards =  selectableCards.filter(card => card.id !== selectedCard.id)
+        this.setState({
+          cards: newCards,
+          selectableCards: newSelectableCards,
+          selectedCard: null,
+          status: {
+            message: `Successfully added ${selectedCard.name} to your wallet`,
+            open: true
+          }
+        })
+      } catch (e) {
+        this.setState({
+          status: {
+            message: 'Something went wrong, please try adding card again later.',
+            open: true
+          }
+        })
+      }
     }
   }
 
   render() {
-    const { cards, isLoading, selectableCards, selectedValue } = this.state;
+    const { cards, isLoading, selectableCards, selectedCard, status } = this.state;
     return (
       <Loading isLoading={isLoading}>
         <ul>
@@ -55,8 +90,9 @@ class CardsPage extends Component {
             <li>{`You don't have any cards in your wallet`}</li>
           }
         </ul>
-        <AddCardForm selectableCards={selectableCards} selectedValue={selectedValue} handleCardChange={this.handleCardChange} />
-
+        <AddCardForm selectableCards={selectableCards} selectedCard={selectedCard} handleCardChange={this.handleCardChange} />
+        <FlatButton label="Add Card" primary={true} disabled={false} onClick={this.addCardToWallet} />
+        <Status {...status} handleOpenChange={this.handleOpenChange} />
       </Loading>
     );
   }
