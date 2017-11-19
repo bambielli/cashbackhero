@@ -26,7 +26,24 @@ function addCardToWallet(cardId) {
   })
 }
 
+function deleteFromWallet(cardId) {
+  const body = JSON.stringify({ cardId })
+  return fetch('/api/users/wallets/cards', {
+    method: 'delete',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body
+  }).then(res => {
+    if (res.ok) {
+      return Promise.resolve()
+    } else {
+      return Promise.reject('Internal Server Error')
+    }
+  })
+}
+
 module.exports = {
   getUserWallets,
   addCardToWallet,
+  deleteFromWallet,
 }

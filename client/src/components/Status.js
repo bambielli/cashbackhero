@@ -9,7 +9,7 @@ export default function Status({ message, open, handleOpenChange }) {
 
   return (
     <Snackbar
-      action="X"
+      action="Dismiss"
       message={message}
       open={open}
       onActionTouchTap={handleRequestClose}

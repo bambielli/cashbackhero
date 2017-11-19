@@ -1,5 +1,4 @@
-const express = require('express')
-const router = express.Router()
+const router = require('express').Router()
 const queries = require('./userQueries')
 
 // design decision: these routes could be /:id/wallets
@@ -9,5 +8,6 @@ const queries = require('./userQueries')
 // attempting to request.
 router.get('/wallets', queries.getUserWallets)
 router.post('/wallets/cards', queries.addUserCard)
+router.delete('/wallets/cards', queries.deleteUserCard)
 
 module.exports = router

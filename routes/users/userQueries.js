@@ -22,12 +22,10 @@ const getUserWallets = (req, res, next) => {
 
 const addUserCard = (req, res, next) => {
   const userId = parseInt(req.user.id)
-  if (isNaN(userId)) {
-    throw Error('Requested ID was not an integer')
+  const cardId = parseInt(req.body.cardId)
+  if (isNaN(userId) || isNaN(cardId)) {
+    throw Error('UserId and CardId must both be integers')
   }
-
-  const cardId = req.body.cardId
-  console.log(userId, cardId)
   users.addUserCard(userId, cardId)
     .then((data) => {
       console.log('successfull add')
@@ -38,7 +36,24 @@ const addUserCard = (req, res, next) => {
     })
 }
 
+const deleteUserCard = (req, res, next) => {
+  const userId = parseInt(req.user.id)
+  const cardId = parseInt(req.body.cardId)
+  if (isNaN(userId) || isNaN(cardId)) {
+    throw Error('UserId and CardId must both be integers')
+  }
+  users.deleteUserCard(userId, cardId)
+    .then((data) => {
+      console.log('successfull delete')
+      res.status(204).send()
+    })
+    .catch((err) => {
+      return next(err)
+    })
+}
+
 module.exports = {
   getUserWallets,
-  addUserCard
+  addUserCard,
+  deleteUserCard
 }

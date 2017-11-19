@@ -18,8 +18,7 @@ module.exports = {
     deleteCard: (id) => {
       return db.result(sql('cards/deleteCard.sql'), { id })
     },
-    getSelectableCards: (userId) => {
-      const user_id = parseInt(userId)
+    getSelectableCards: (user_id) => {
       return db.any(sql('cards/getSelectableCards.sql'), { user_id })
     }
   },
@@ -36,15 +35,16 @@ module.exports = {
       return db.one(sql('users/getOrCreateUser.sql'), userData)
     },
     getUser: (id) => {
-      return db.one(sql('users/getUser.sql'), {id: id})
+      return db.one(sql('users/getUser.sql'), { id })
     },
-    getUserWallets: (userId) => {
-      const user_id = parseInt(userId)
+    getUserWallets: (user_id) => {
       return db.any(sql('users/getUserWallets.sql'), { user_id })
     },
-    addUserCard: (userId, card_id) => {
-      const user_id = parseInt(userId)
+    addUserCard: (user_id, card_id) => {
       return db.none(sql('users/addUserCard.sql'), { user_id, card_id })
+    },
+    deleteUserCard: (user_id, card_id) => {
+      return db.none(sql('users/deleteUserCard.sql'), { user_id, card_id })
     }
   }
 }
