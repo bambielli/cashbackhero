@@ -86,10 +86,30 @@ const deleteCard = (req, res, next) => {
     })
 }
 
+const getSelectableCards = (req, res, next) => {
+  const userId = parseInt(req.user.id)
+  if (isNaN(userId)) {
+    throw Error('user not logged in')
+  }
+  cards.getSelectableCards(userId)
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved selectable cards'
+        })
+    })
+    .catch(function (err) {
+      return next(err)
+    })
+}
+
 module.exports = {
   getAllCards,
   getSingleCard,
   createCard,
   updateCard,
-  deleteCard
+  deleteCard,
+  getSelectableCards
 }

@@ -8,6 +8,6 @@ const queries = require('./userQueries')
 // user object. This is safer, since users have no control over what ID they are
 // attempting to request.
 router.get('/wallets', queries.getUserWallets)
-router.post('/addCardToWallet', queries.addUserCard)
+router.post('/wallets/cards', queries.addUserCard)
 
 module.exports = router

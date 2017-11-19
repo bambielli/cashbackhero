@@ -7,16 +7,20 @@ module.exports = {
       return db.any(sql('cards/getAllCards.sql'))
     },
     getSingleCard: (id) => {
-      return db.one(sql('cards/getSingleCard.sql'), {id: id})
+      return db.one(sql('cards/getSingleCard.sql'), { id })
     },
     createCard: (name) => {
-      return db.none(sql('cards/createCard.sql'), {name: name})
+      return db.none(sql('cards/createCard.sql'), { name })
     },
     updateCard: (id, name) => {
-      return db.none(sql('cards/updateCard.sql'), {id: id, name: name})
+      return db.none(sql('cards/updateCard.sql'), { id, name })
     },
     deleteCard: (id) => {
-      return db.result(sql('cards/deleteCard.sql'), {id: id})
+      return db.result(sql('cards/deleteCard.sql'), { id })
+    },
+    getSelectableCards: (userId) => {
+      const user_id = parseInt(userId)
+      return db.any(sql('cards/getSelectableCards.sql'), { user_id })
     }
   },
   users: {
@@ -36,11 +40,11 @@ module.exports = {
     },
     getUserWallets: (userId) => {
       const user_id = parseInt(userId)
-      return db.any(sql('users/getUserWallets.sql'), {user_id: user_id})
+      return db.any(sql('users/getUserWallets.sql'), { user_id })
     },
-    addUserCard: (userId, cardId) => {
+    addUserCard: (userId, card_id) => {
       const user_id = parseInt(userId)
-      return db.none(sql('users/addUserCard.sql'), {user_id: user_id, card_id: cardId})
+      return db.none(sql('users/addUserCard.sql'), { user_id, card_id })
     }
   }
 }
