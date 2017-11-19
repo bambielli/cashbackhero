@@ -90,8 +90,15 @@ class CardsPage extends Component {
             <li>{`You don't have any cards in your wallet`}</li>
           }
         </ul>
-        <AddCardForm selectableCards={selectableCards} selectedCard={selectedCard} handleCardChange={this.handleCardChange} />
-        <FlatButton label="Add Card" primary={true} disabled={false} onClick={this.addCardToWallet} />
+        {
+          selectableCards.length ?
+          <div>
+            <AddCardForm selectableCards={selectableCards} selectedCard={selectedCard} handleCardChange={this.handleCardChange} />
+            <FlatButton label="Add Card" primary={true} disabled={false} onClick={this.addCardToWallet} />
+          </div>
+          : null
+        }
+
         <Status {...status} handleOpenChange={this.handleOpenChange} />
       </Loading>
     );
