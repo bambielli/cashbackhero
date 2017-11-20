@@ -5,6 +5,7 @@ import cardsClient from '../clients/cards'
 import Loading from '../components/Loading'
 import AddCardForm from '../components/AddCardForm'
 import Status from '../components/Status'
+import CardList from '../components/CardList'
 
 class CardsPage extends Component {
   constructor(props) {
@@ -116,13 +117,7 @@ class CardsPage extends Component {
     const { cards, isLoading, selectableCards, selectedCard, status, buttonDisabled } = this.state;
     return (
       <Loading isLoading={isLoading}>
-        <ul>
-          {
-            cards.length ?
-            cards.map((card)=> <li key={card.id}>{card.name}<FlatButton label="X" secondary={true} value={JSON.stringify(card)} onClick={this.deleteFromWallet} /></li>)
-            : <li>{`You don't have any cards in your wallet`}</li>
-          }
-        </ul>
+        <CardList cards={cards} deleteFromWallet={this.deleteFromWallet} />
         {
           selectableCards.length ?
           <div>
